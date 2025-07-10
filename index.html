@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyper - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: #000000;
+            overflow-x: hidden;
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .glow-strong {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s linear infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .slide-in {
+            animation: slideIn 1s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .heavenly-gradient {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+        }
+        
+        .modern-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+        }
+
+    </style>
+</head>
+<body class="min-h-screen bg-black text-white">
+    <audio id="bgAudio" loop>
+        <source src="audio.mp4" type="audio/mp4">
+    </audio>
+
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="sparkle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 40%; left: 90%; animation-delay: 0.5s;"></div>
+        <div class="sparkle" style="top: 60%; left: 20%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="top: 80%; left: 80%; animation-delay: 1.5s;"></div>
+        <div class="sparkle" style="top: 30%; left: 70%; animation-delay: 2s;"></div>
+        <div class="sparkle" style="top: 70%; left: 30%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <div class="relative mb-8 slide-in">
+            <div class="w-full h-64 md:h-80 rounded-3xl overflow-hidden glow-strong">
+                <img src="https://i.postimg.cc/vB9P6hhd/Banner-205.gif" alt="Banner" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="absolute top-4 right-4 floating" style="filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));">
+                 <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2l4.29 4.29-1.42 1.42L12 3.41l-4.88 4.88-1.42-1.42L10 2h4zM3.41 8.59L8.3 13.5 12 9.79l-3.7-3.7-4.89 2.5zM20.59 8.59L15.7 13.5 12 9.79l3.7-3.7 4.89 2.5zM9.17 14.17l2.83 2.83 2.83-2.83-2.83-2.83-2.83 2.83zM12 22l-4.88-4.88 1.42-1.42L12 20.59l4.88-4.88 1.42 1.42L12 22z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="text-center mb-8 slide-in">
+            <div class="relative inline-block mb-6">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden glow-strong floating">
+                    <img src="https://i.postimg.cc/R02sFycR/Ava-205.gif" alt="Avatar" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center pulse">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="black">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 glow">Hyper</h1>
+            
+            <div class="space-y-3 text-lg md:text-xl">
+                <p class="flex items-center justify-center space-x-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                    </svg>
+                    <span>Python | Html Developer</span>
+                </p>
+                <p class="flex items-center justify-center space-x-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span>Wanna Be My Friend?</span>
+                </p>
+                <p class="flex items-center justify-center space-x-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <span>One piece Lover!!!</span>
+                </p>
+                 <p class="flex items-center justify-center space-x-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0190 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z"/>
+                    </svg>
+                    <span>Discord : hypes.exe</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-center mb-8 slide-in">
+            <button class="heavenly-gradient px-12 py-4 rounded-2xl text-white font-semibold transition-all duration-300 btn-glow text-lg">
+                <span class="flex items-center space-x-3">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span>Let's Be Friends!</span>
+                </span>
+            </button>
+        </div>
+
+        <div class="modern-card rounded-3xl p-8 mb-8 glow slide-in">
+            <h2 class="text-2xl font-bold mb-6 text-center">Skills & Interests</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-white/8 flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                        </svg>
+                    </div>
+                    <p class="font-semibold">Python</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-white/8 flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <p class="font-semibold">HTML</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-white/8 flex items-center justify-center">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <p class="font-semibold">i am straight 💔🥀</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-white/8 flex items-center justify-center">
+                         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.0001 2.99988L7.75745 7.24252L12.0001 11.4852L16.2427 7.24252L12.0001 2.99988ZM7.24275 7.75726L3.00012 11.9999L7.24275 16.2425L11.4854 11.9999L7.24275 7.75726ZM16.7575 7.75726L12.5148 11.9999L16.7575 16.2425L21.0001 11.9999L16.7575 7.75726ZM12.0001 12.5146L7.75745 16.7572L12.0001 20.9999L16.2427 16.7572L12.0001 12.5146Z"/>
+                        </svg>
+                    </div>
+                    <p class="font-semibold">One Piece Is Real!!!!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center slide-in">
+            <h3 class="text-xl font-semibold mb-4">Let's Chat!</h3>
+            <a href="https://discord.gg/darkogen" target="_blank" class="inline-block">
+                <button class="bg-white text-black px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 btn-glow hover:bg-gray-100">
+                    <span class="flex items-center space-x-3">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0190 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z"/>
+                        </svg>
+                        <span>Join Discord</span>
+                    </span>
+                </button>
+            </a>
+        </div>
+
+        <div class="text-center mt-12 text-gray-400 slide-in">
+            <p class="flex items-center justify-center space-x-2">
+                <span>Made with</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="red">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span>by Hyper</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('bgAudio');
+            
+            function playAudio() {
+                audio.play().catch(e => {
+                    console.log('Auto-play prevented by browser policy. Audio will play on first user interaction.');
+                });
+            }
+            
+            playAudio();
+            
+            document.addEventListener('click', function() {
+                playAudio();
+            }, { once: true });
+        });
+        
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+        
+        setInterval(createSparkle, 1000);
+        
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.slide-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
