@@ -83,11 +83,19 @@
             backdrop-filter: blur(20px);
         }
 
+        /* Styles for the new audio player box */
+        .audio-player-box {
+            background-color: #1a1a1a; /* Dark black */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="min-h-screen bg-black text-white">
+    <!-- Audio element for the song -->
     <audio id="bgAudio" loop>
-        <source src="idk.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> <!-- Replaced with a placeholder song URL -->
     </audio>
 
     <div class="fixed inset-0 pointer-events-none">
@@ -228,64 +236,111 @@
         </div>
     </div>
 
+    <!-- New Audio Player Box -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 audio-player-box rounded-t-3xl slide-in">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <img src="https://i.postimg.cc/vB4xVydq/3cb7b37ce26be7a7c1ee72604f00f235.jpg" alt="Song Profile" class="w-16 h-16 rounded-xl object-cover glow">
+                <div>
+                    <p class="text-lg font-semibold">We are, We are On The Cruise</p>
+                    <p class="text-gray-400 text-sm">— One Piece</p>
+                </div>
+            </div>
+            <button id="playPauseButton" class="bg-white text-black p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110">
+                <!-- Play icon (default) -->
+                <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <!-- Pause icon (hidden by default) -->
+                <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('bgAudio');
+            const playPauseButton = document.getElementById('playPauseButton');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            let isPlaying = false; // Track audio state
+
+            // Function to toggle play/pause
+            function togglePlayPause() {
+                if (isPlaying) {
+                    audio.pause();
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                } else {
+                    audio.play().catch(e => {
+                        console.log('Audio play prevented:', e);
+                    });
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                }
+                isPlaying = !isPlaying;
+            }
+
+            // Event listener for the play/pause button
+            playPauseButton.addEventListener('click', togglePlayPause);
+
+            // Update button icon when audio state changes (e.g., if it ends)
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            });
+
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            });
             
-            function playAudio() {
-                audio.play().catch(e => {
-                    console.log('Auto-play prevented by browser policy. Audio will play on first user interaction.');
-                });
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
             }
             
-            playAudio();
+            setInterval(createSparkle, 1000);
             
-            document.addEventListener('click', function() {
-                playAudio();
-            }, { once: true });
-        });
-        
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            sparkle.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(sparkle);
-            
-            setTimeout(() => {
-                sparkle.remove();
-            }, 2000);
-        }
-        
-        setInterval(createSparkle, 1000);
-        
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px) scale(1.05)';
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px) scale(1.05)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
             });
             
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.slide-in').forEach(el => {
+                observer.observe(el);
             });
-        });
-        
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.slide-in').forEach(el => {
-            observer.observe(el);
         });
     </script>
 </body>
