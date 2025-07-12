@@ -85,17 +85,67 @@
 
         /* Styles for the new audio player box */
         .audio-player-box {
-            background-color: #1a1a1a; /* Dark black */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Progress bar styling */
+        .progress-bar-container {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #8B5CF6; /* Purple color */
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
+        /* Volume slider styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            border-radius: 3px;
+            transition: opacity .2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #8B5CF6; /* Purple color */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #8B5CF6; /* Purple color */
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
-<body class="min-h-screen bg-black text-white">
+<body class="min-h-screen bg-black text-white pb-32"> <!-- Added padding-bottom to body for player box -->
     <!-- Audio element for the song -->
     <audio id="bgAudio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> <!-- Replaced with a placeholder song URL -->
+        <source src="idk.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <div class="fixed inset-0 pointer-events-none">
@@ -238,24 +288,44 @@
 
     <!-- New Audio Player Box -->
     <div class="fixed bottom-0 left-0 right-0 p-4 audio-player-box rounded-t-3xl slide-in">
-        <div class="container mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-4">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-8">
+            <!-- Song Info and Play/Pause Button -->
+            <div class="flex items-center space-x-4 w-full md:w-auto">
                 <img src="https://i.postimg.cc/vB4xVydq/3cb7b37ce26be7a7c1ee72604f00f235.jpg" alt="Song Profile" class="w-16 h-16 rounded-xl object-cover glow">
-                <div>
+                <div class="flex-grow">
                     <p class="text-lg font-semibold">We are, We are On The Cruise</p>
-                    <p class="text-gray-400 text-sm">— One Piece</p>
+                    <p class="text-gray-400 text-sm">One Piece</p>
+                </div>
+                <button id="playPauseButton" class="bg-white text-black p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex-shrink-0">
+                    <!-- Play icon (default) -->
+                    <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <!-- Pause icon (hidden by default) -->
+                    <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Progress Bar and Time -->
+            <div class="flex flex-col items-center flex-grow w-full md:w-auto space-y-2">
+                <div id="progressBarContainer" class="progress-bar-container w-full">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <div class="flex justify-between w-full text-xs text-gray-400">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
                 </div>
             </div>
-            <button id="playPauseButton" class="bg-white text-black p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110">
-                <!-- Play icon (default) -->
-                <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
+
+            <!-- Volume Control -->
+            <div class="flex items-center space-x-2 w-full md:w-auto md:max-w-[150px]">
+                <svg class="w-5 h-5 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                 </svg>
-                <!-- Pause icon (hidden by default) -->
-                <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                </svg>
-            </button>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7" class="w-full">
+            </div>
         </div>
     </div>
 
@@ -265,40 +335,88 @@
             const playPauseButton = document.getElementById('playPauseButton');
             const playIcon = document.getElementById('playIcon');
             const pauseIcon = document.getElementById('pauseIcon');
+            const progressBar = document.getElementById('progressBar');
+            const progressBarContainer = document.getElementById('progressBarContainer');
+            const currentTimeSpan = document.getElementById('currentTime');
+            const durationSpan = document.getElementById('duration');
+            const volumeSlider = document.getElementById('volumeSlider');
             let isPlaying = false; // Track audio state
+
+            // Set initial volume
+            audio.volume = volumeSlider.value;
+
+            // Function to format time
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            }
 
             // Function to toggle play/pause
             function togglePlayPause() {
                 if (isPlaying) {
                     audio.pause();
-                    playIcon.classList.remove('hidden');
-                    pauseIcon.classList.add('hidden');
                 } else {
                     audio.play().catch(e => {
                         console.log('Audio play prevented:', e);
+                        // In a real scenario, you might show a user-friendly message here
+                        // For example, a temporary div appearing saying "Click anywhere to play audio"
                     });
-                    playIcon.classList.add('hidden');
-                    pauseIcon.classList.remove('hidden');
                 }
                 isPlaying = !isPlaying;
+                updatePlayPauseIcon();
+            }
+
+            // Function to update play/pause icon
+            function updatePlayPauseIcon() {
+                if (isPlaying) {
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                } else {
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                }
             }
 
             // Event listener for the play/pause button
             playPauseButton.addEventListener('click', togglePlayPause);
 
-            // Update button icon when audio state changes (e.g., if it ends)
-            audio.addEventListener('play', () => {
-                isPlaying = true;
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
+            // Update progress bar and time as audio plays
+            audio.addEventListener('timeupdate', () => {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+                currentTimeSpan.textContent = formatTime(audio.currentTime);
             });
 
-            audio.addEventListener('pause', () => {
-                isPlaying = false;
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
+            // Update duration when metadata is loaded
+            audio.addEventListener('loadedmetadata', () => {
+                durationSpan.textContent = formatTime(audio.duration);
             });
+
+            // Seek functionality when clicking on the progress bar
+            progressBarContainer.addEventListener('click', (e) => {
+                const clickX = e.offsetX;
+                const width = progressBarContainer.offsetWidth;
+                const duration = audio.duration;
+                audio.currentTime = (clickX / width) * duration;
+            });
+
+            // Volume control
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+
+            // Handle audio ending
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                updatePlayPauseIcon();
+                audio.currentTime = 0; // Reset to beginning
+            });
+
+            // Initial icon update
+            updatePlayPauseIcon();
             
+            // Sparkle and button animation logic (kept from original)
             function createSparkle() {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
